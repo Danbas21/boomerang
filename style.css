@@ -465,14 +465,23 @@ header.scrolled {
     line-height: 0.9;
     font-weight: 800;
     letter-spacing: -0.02em;
-    text-transform: capitalize;
+    text-transform: lowercase;
 }
 
 .show-on-load-1st {
     animation: revealText 1s ease forwards;
     animation-delay: 0.5s;
-    font-size: 1.5rem;
+    font-size: 5.5rem;
     font-weight: 300;
+    color: var(--primary);
+    text-transform: capitalize;
+}
+
+.show-on-load-8st {
+    animation: revealText 1s ease forwards;
+    animation-delay: 0.5s;
+    font-size: 1.5rem;
+    font-weight: 50;
     color: var(--primary);
     text-transform: capitalize;
 }
@@ -488,7 +497,7 @@ header.scrolled {
     animation: revealText 1s ease forwards;
     animation-delay: 1s;
     font-weight: 300;
-    text-transform: capitalize;
+    text-transform: lowercase;
 }
 
 .show-on-load-2nd._00 {
@@ -937,13 +946,14 @@ h1 {
 }
 
 .scaling-svg {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1rem;
+    width: 300px;
+    height: 120px;
+    margin-bottom: .5rem;
     transform: rotate(-15deg) scale(1);
     animation: pulse 5s ease-in-out infinite;
     transition: transform 0.5s ease;
 }
+
 
 .scaling-svg:hover {
     transform: rotate(0deg) scale(1.2);
@@ -952,7 +962,7 @@ h1 {
 .scaling-svg img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .scaling-svg.animate-in {
@@ -2205,21 +2215,203 @@ h1 {
 
 .overflow-hidden { overflow: hidden; }
 
+/* Estilos básicos para la sección de dos columnas */
+.two-column-section {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Estilos para cada columna */
+.column {
+    flex: 1; /* Cada columna ocupa 50% del ancho */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Estilos específicos para la columna de texto */
+.text-column {
+    background-color: rgba(255, 255, 255, 0.1); /* Color de fondo claro o el que prefieras */
+    color: #fff; /* Color de texto blanco */
+    position: relative;
+}
+
+/* Estilos específicos para la columna de video */
+.video-column {
+    background-color: #000000; /* Color de fondo negro o el que prefieras */
+    position: relative;
+}
+
+/* Estilos para el contenedor de video */
 .hero-video-container {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
 }
-  
-.hero-video-container video {
+
+#boomerangVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .two-column-section {
+        flex-direction: column;
+    }
+    
+    .column {
+        width: 100%;
+        min-height: 50vh;
+    }
+}
+
+/* Estilos para el botón de reproducción */
+.img-parent.hero-img {
     position: absolute;
+    z-index: 10;
     top: 50%;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
     transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: 1;
-    border-radius: var(--border-radius);
 }
+
+.play-btn-parent-01 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.text-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+
+/* Estilos para la caption */
+.caption {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+    z-index: 5;
+}
+
+/* Estilos para el botón circular de reproducción */
+.img-parent.hero-img {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: all;
+}
+
+.play-btn-parent-01 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.play-btn-parent-01:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 105, 0, 0.4);
+}
+
+.text-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.play-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #FF6900;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.play-btn:hover {
+    background-color: #ff8533;
+    transform: scale(1.1);
+}
+
+.play-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+/* Estilos para el contenedor del video */
+.hero-video-container {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    overflow: hidden;
+}
+
+#boomerangVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+
+

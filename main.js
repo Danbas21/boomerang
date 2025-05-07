@@ -1,5 +1,16 @@
 // Inicialización de animaciones y funcionalidades
 document.addEventListener("DOMContentLoaded", function () {
+  // Añadir detectores de errores para recursos
+  window.addEventListener(
+    "error",
+    function (e) {
+      if (e.target.tagName === "VIDEO" || e.target.tagName === "SOURCE") {
+        console.error("Error cargando recurso:", e.target.src);
+      }
+    },
+    true
+  );
+
   // Comprobamos que las bibliotecas necesarias existan
   const hasGSAP = typeof gsap !== "undefined";
   const hasLenis = typeof Lenis !== "undefined";
@@ -191,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Animar líneas de texto con divisiones y separaciones
     const textLines = document.querySelectorAll(".split .line");
     if (textLines.length > 0) {
-      gsap.utils.toArray(textLines).forEach((line, i) => {
+      gsap.utils.toArray(textLines).forEach((line) => {
         gsap.from(line, {
           opacity: 0,
           y: 50,
@@ -536,23 +547,306 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Reproducción automática del video solo cuando está visible
+  // ===== REPRODUCCIÓN DE VIDEO =====
+  // Código mejorado para la reproducción de video
   const video = document.getElementById("boomerangVideo");
-  if (video && "IntersectionObserver" in window) {
-    const videoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch((e) => console.warn("Error al reproducir:", e));
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
+  const playButton = document.querySelector(".play-btn-parent-01");
+  const muteToggle = document.getElementById("muteToggle");
+  const resetVideo = document.getElementById("resetVideo");
+  const loadingIndicator = document.getElementById("loadingIndicator");
+  const loadingBar = document.getElementById("loadingBar");
+  // Definir las referencias a los elementos de UI
+  const playIcon = document.querySelector(".play-icon");
+  const textRing = document.querySelector(".text-ring");
 
-    videoObserver.observe(video);
+  if (video && playButton) {
+    // Inicializar variables
+    let isPlaying = false;
+    let videoError = false;
+    let retryCount = 0;
+    const MAX_RETRIES = 3;
+
+    // Función para mostrar el indicador de carga
+    function showLoading() {
+      if (loadingIndicator) {
+        loadingIndicator.style.display = "block";
+      }
+    }
+
+    // Función para ocultar el indicador de carga
+    function hideLoading() {
+      if (loadingIndicator) {
+        loadingIndicator.style.display = "none";
+        if (loadingBar) loadingBar.style.width = "0%";
+      }
+    }
+
+    // Actualizar barra de progreso de carga
+    video.addEventListener("progress", function () {
+      if (video.buffered.length > 0 && loadingBar) {
+        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+        const duration = video.duration;
+        if (duration > 0) {
+          const loadProgress = (bufferedEnd / duration) * 100;
+          loadingBar.style.width = loadProgress + "%";
+        }
+      }
+    });
+
+    // Mostrar botón de reproducción siempre que el video esté pausado
+    function showPlayButton() {
+      playButton.style.opacity = "1";
+      playButton.style.visibility = "visible";
+    }
+
+    function hidePlayButton() {
+      playButton.style.opacity = "0";
+      playButton.style.visibility = "hidden";
+    }
+
+    // Detectar cuando el video está listo para reproducirse
+    video.addEventListener("canplay", function () {
+      console.log("Video cargado y listo para reproducirse");
+      hideLoading();
+    });
+
+    // Detectar buffering
+    video.addEventListener("waiting", function () {
+      console.log("Buffering: esperando datos de video...");
+      showLoading();
+    });
+
+    // Detectar cuando el video se está reproduciendo
+    video.addEventListener("playing", function () {
+      console.log("Video reproduciendo");
+      isPlaying = true;
+      hideLoading();
+      hidePlayButton();
+
+      // Animación de éxito al iniciar el video
+      if (playButton) {
+        playButton.style.animation = "pulse 0.5s ease-out";
+      }
+    });
+
+    // Detectar cuando el video se pausa
+    video.addEventListener("pause", function () {
+      console.log("Video pausado");
+      isPlaying = false;
+      showPlayButton();
+    });
+
+    // Detectar cuando el video finaliza
+    video.addEventListener("ended", function () {
+      console.log("Video finalizado");
+      isPlaying = false;
+      showPlayButton();
+    });
+
+    // Manejar errores de video
+    video.addEventListener("error", function (e) {
+      videoError = true;
+      console.error("Error de video:", e);
+      console.error(
+        "Código de error:",
+        video.error ? video.error.code : "desconocido"
+      );
+
+      showPlayButton();
+
+      if (retryCount < MAX_RETRIES) {
+        console.log(
+          `Intentando recuperar (intento ${
+            retryCount + 1
+          } de ${MAX_RETRIES})...`
+        );
+        retryCount++;
+        setTimeout(resetVideoPlayer, 1000);
+      } else {
+        console.error("Número máximo de intentos excedido");
+        alert(
+          "Lo sentimos, hay un problema con la reproducción del video. Por favor, intenta recargar la página."
+        );
+      }
+    });
+
+    // Manejar situaciones cuando el video se atasca
+    let stallTimer;
+    video.addEventListener("timeupdate", function () {
+      // Limpiar cualquier temporizador existente
+      if (stallTimer) clearTimeout(stallTimer);
+
+      // Establecer un nuevo temporizador
+      stallTimer = setTimeout(function () {
+        if (isPlaying && !video.paused) {
+          console.warn(
+            "Video posiblemente atascado (sin actualizaciones por 3 segundos)"
+          );
+          // Intentar recuperar sin reiniciar completamente
+          const currentTime = video.currentTime;
+          video.currentTime = currentTime + 0.5;
+        }
+      }, 3000);
+    });
+
+    // Función para reiniciar el reproductor de video
+    function resetVideoPlayer() {
+      console.log("Reiniciando reproductor de video...");
+
+      // Guardar el estado actual
+      const wasMuted = video.muted;
+      const wasPlaying = !video.paused;
+      const currentTime = video.paused ? 0 : video.currentTime;
+
+      // Reiniciar el reproductor
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+
+      // Volver a añadir las fuentes
+      const sources = video.querySelectorAll("source");
+      for (let i = 0; i < sources.length; i++) {
+        const source = sources[i];
+        const src = source.getAttribute("src");
+        source.setAttribute("src", src + "?reload=" + new Date().getTime());
+      }
+
+      // Recargar el video
+      video.load();
+
+      // Restaurar el estado
+      video.currentTime = currentTime;
+      video.muted = wasMuted;
+
+      if (wasPlaying) {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((e) => {
+            console.error("Error al reanudar reproducción:", e);
+            showPlayButton();
+          });
+        }
+      }
+    }
+
+    // Asociar la función de reinicio al botón
+    if (resetVideo) {
+      resetVideo.addEventListener("click", function () {
+        resetVideoPlayer();
+      });
+    }
+
+    // Manejar clic en el botón de reproducción
+    playButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("Botón de reproducción clickeado");
+
+      if (videoError) {
+        resetVideoPlayer();
+        videoError = false;
+      }
+
+      if (video.paused) {
+        showLoading();
+
+        // Intentar reproducir
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log("Video reproduciendo correctamente");
+              hidePlayButton();
+            })
+            .catch((error) => {
+              console.error("Error al reproducir:", error);
+
+              // Si falla, intentar con mute primero (política de autoplay)
+              video.muted = true;
+              video
+                .play()
+                .then(() => {
+                  console.log("Video reproduciendo en modo silencioso");
+                  hidePlayButton();
+
+                  // Mostrar mensaje para activar audio
+                  const audioMessage = document.createElement("div");
+                  audioMessage.innerHTML = "Haz clic para activar el audio";
+                  audioMessage.style.cssText =
+                    "position: absolute; top: 10px; left: 0; right: 0; text-align: center; background: rgba(255,105,0,0.8); color: white; padding: 10px; cursor: pointer; z-index: 20;";
+
+                  audioMessage.addEventListener("click", function () {
+                    video.muted = false;
+                    if (muteToggle) muteToggle.textContent = "🔊";
+                    this.remove();
+                  });
+
+                  video.parentElement.appendChild(audioMessage);
+                })
+                .catch((e) => {
+                  console.error("Error incluso en modo silencioso:", e);
+                  showPlayButton();
+                  alert(
+                    "Tu navegador está bloqueando la reproducción de video. Intenta habilitar la reproducción automática en la configuración."
+                  );
+                });
+            });
+        }
+      } else {
+        video.pause();
+        showPlayButton();
+      }
+    });
+
+    // Manejar el botón de silencio
+    if (muteToggle) {
+      muteToggle.addEventListener("click", function () {
+        video.muted = !video.muted;
+        this.textContent = video.muted ? "🔇" : "🔊";
+      });
+    }
+
+    // Efecto de hover en el botón
+    if (playIcon && textRing) {
+      playButton.addEventListener("mouseenter", function () {
+        // Aumentar la velocidad de rotación del anillo
+        textRing.style.animationDuration = "5s";
+        playIcon.style.transform = "scale(1.2)";
+      });
+
+      playButton.addEventListener("mouseleave", function () {
+        // Restaurar la velocidad normal
+        textRing.style.animationDuration = "10s";
+        playIcon.style.transform = "scale(1)";
+      });
+    }
+
+    // Precargar video para evitar problemas
+    if (video.readyState === 0) {
+      console.log("Precargando video...");
+      video.load();
+    }
+
+    // Si hay problemas, usar opciones de reproducción alternativas
+    if (navigator.userAgent.toLowerCase().indexOf("mobile") > -1) {
+      console.log(
+        "Dispositivo móvil detectado, ajustando configuración de video"
+      );
+      video.setAttribute("playsinline", "");
+      video.setAttribute("preload", "metadata");
+    }
+
+    // Forzar carga del video después de un breve retraso
+    setTimeout(() => {
+      if (video.readyState === 0) {
+        console.log("Forzando carga del video");
+        video.load();
+      }
+    }, 1000);
+  } else {
+    console.error("No se encontraron los elementos de video necesarios");
+    if (!video) console.error("- Elemento de video no encontrado");
+    if (!playButton) console.error("- Botón de reproducción no encontrado");
   }
 
   // Agregar efectos hover a los proyectos
