@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es" class="font-loaded">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, shrink-to-fit=no">
+    <title>Créditos | Boomerang</title>
+    <meta name="description"
+        content="Conoce al equipo detrás de Boomerang, profesionales comprometidos con la excelencia en desarrollo de software y marketing digital.">
+    <meta name="author" content="Boomerang">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="images/favicon-192.png">
+    <meta property="og:title" content="Créditos | Boomerang">
+    <meta property="og:description"
+        content="Conoce al equipo detrás de Boomerang, profesionales comprometidos con la excelencia en desarrollo de software y marketing digital.">
+    <meta property="og:image" content="https://boomerang-tech.com/images/cover-share.jpg">
+    <meta property="og:url" content="https://boomerang-tech.com/creditos.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Exo:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Estilos específicos para la página de créditos */
+        .credits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 80px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .credits-header {
+            margin-bottom: 60px;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 105, 0, 0.3);
+        }
+
+        .credits-header h1 {
+            color: #FF6900;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Exo', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .credits-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .team-member {
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 105, 0, 0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 105, 0, 0.1);
+        }
+
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #FF6900, #FF9B5A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-avatar span {
+            font-size: 3rem;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .member-name {
+            font-size: 1.8rem;
+            color: #FF6900;
+            margin-bottom: 10px;
+            font-family: 'Exo', sans-serif;
+            font-weight: 600;
+        }
+
+        .member-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #555;
+            font-family: 'Ubuntu', sans-serif;
+            font-style: italic;
+        }
+
+        .member-bio {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #666;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .tech-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .tech-section h2 {
+            color: #FF6900;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-family: 'Exo', sans-serif;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            padding: 10px 20px;
+            background: rgba(255, 105, 0, 0.1);
+            border-radius: 30px;
+            color: #FF6900;
+            font-weight: 500;
+            font-family: 'Ubuntu', sans-serif;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(255, 105, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .credits-footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 105, 0, 0.3);
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FF6900;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-to-home:hover {
+            background-color: #e55e00;
+            text-decoration: none !important;
+        }
+
+        /* Modo oscuro */
+        @media (prefers-color-scheme: dark) {
+            body.light-mode {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+
+            .team-member {
+                background: rgba(40, 40, 40, 0.3);
+                border: 1px solid rgba(255, 105, 0, 0.2);
+            }
+
+            .member-title,
+            .member-bio {
+                color: #b0b0b0;
+            }
+
+            .credits-header p {
+                color: #c0c0c0;
+            }
+
+            .tech-item {
+                background: rgba(255, 105, 0, 0.15);
+            }
+
+            .tech-item:hover {
+                background: rgba(255, 105, 0, 0.25);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .credits-container {
+                padding: 100px 15px 60px;
+            }
+
+            .credits-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .team-section {
+                gap: 30px;
+            }
+
+            .team-member {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body class="body light-mode">
+    <!-- Cursor personalizado -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <header id="header" class="fixed--bg" role="banner">
+        <div class="wrap-header--padding-sm">
+            <nav class="main-navigation">
+                <div class="title">
+                    <a href="/" aria-label="Boomerang - Inicio">
+                        <div class="scaling-svg">
+                            <img src="assets/images/blanco.png" width="350" height="120" alt="Boomerang Logo"
+                                class="image-2">
+                        </div>
+                    </a>
+                </div>
+                <div id="main-menu" aria-expanded="false" role="navigation">
+                    <ul>
+                        <li class="h6"><a href="/#servicios">servicios</a></li>
+                        <li class="h6"><a href="/#contacto">contacto</a></li>
+                        <li class="h6"><a href="/">inicio</a></li>
+                    </ul>
+                </div>
+                <!-- Botón de menú móvil -->
+                <button id="mobile-menu-toggle" aria-label="Abrir menú" aria-controls="main-menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-wrap">
+        <div class="credits-container">
+            <div class="credits-header">
+                <h1>Nuestro Equipo</h1>
+                <p>Conoce a los profesionales que hacen posible Boomerang, comprometidos con la excelencia en el
+                    desarrollo de software y marketing digital. Un equipo multidisciplinario enfocado en crear
+                    soluciones tecnológicas que transforman negocios.</p>
+            </div>
+
+            <div class="team-section">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <span>DB</span>
+                    </div>
+                    <h3 class="member-name">Daniel Basurto Aguirre</h3>
+                    <div class="member-title">Ingeniero de Software</div>
+                    <p class="member-bio">Especialista en desarrollo de aplicaciones web y móviles con amplia
+                        experiencia en tecnologías front-end y back-end. Su enfoque en la calidad y la experiencia de
+                        usuario garantiza proyectos de alta calidad técnica.</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <span>BM</span>
+                    </div>
+                    <h3 class="member-name">Bruno Martínez</h3>
+                    <div class="member-title">Director General</div>
+                    <p class="member-bio">Líder visionario con amplia experiencia en el sector tecnológico. Su enfoque
+                        estratégico y pasión por la innovación han posicionado a Boomerang como referente en soluciones
+                        digitales integrales.</p>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h2>Tecnologías que utilizamos</h2>
+                <div class="tech-list">
+                    <div class="tech-item">HTML5</div>
+                    <div class="tech-item">CSS3</div>
+                    <div class="tech-item">JavaScript</div>
+                    <div class="tech-item">React</div>
+                    <div class="tech-item">Node.js</div>
+                    <div class="tech-item">Firebase</div>
+                    <div class="tech-item">Google Cloud</div>
+                    <div class="tech-item">AWS</div>
+                    <div class="tech-item">Python</div>
+                    <div class="tech-item">PHP</div>
+                    <div class="tech-item">WordPress</div>
+                    <div class="tech-item">SEO</div>
+                    <div class="tech-item">UI/UX Design</div>
+                    <div class="tech-item">Adobe Creative Suite</div>
+                </div>
+            </div>
+
+            <div class="tech-section">
+                <h2>Nuestra Filosofía</h2>
+                <p style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8;">
+                    En Boomerang, creemos que la tecnología debe ser accesible, funcional y hermosa. Nuestro enfoque
+                    combina la precisión técnica con el diseño creativo para desarrollar soluciones digitales que no
+                    solo cumplen con los objetivos de negocio de nuestros clientes, sino que también proporcionan
+                    experiencias excepcionales a los usuarios finales. Como nuestro nombre lo indica, apostamos por
+                    estrategias que regresan con resultados, generando impacto positivo y valor duradero.
+                </p>
+            </div>
+
+            <div class="credits-footer">
+                <p>&copy; 2025 Boomerang. Todos los derechos reservados.</p>
+                <p class="made-with">Hecho con <span style="color: #FF6900;">♥</span> en México</p>
+                <a href="/" class="back-to-home">Volver a Inicio</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Flecha para volver arriba -->
+    <a href="#" id="back-to-top" aria-label="Volver arriba">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 15L12 9L6 15" stroke="#FF6900" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </a>
+
+    <script src="/main.js"></script>
+    <script>
+        // Script para mostrar/ocultar el botón de volver arriba
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Script para menú móvil
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mainMenu = document.getElementById('main-menu');
+
+        if (mobileMenuToggle && mainMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+
+                if (mainMenu.getAttribute('aria-expanded') === 'false') {
+                    mainMenu.setAttribute('aria-expanded', 'true');
+                } else {
+                    mainMenu.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
