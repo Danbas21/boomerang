@@ -2413,5 +2413,159 @@ h1 {
     background: rgba(0, 0, 0, 0.4);
 }
 
+ /* Contenedor principal centrado */
+ .main-container {
+    position: static;
+    width: 100%;
+    height: 15vh;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Contenedor de boomerangs animados */
+  #animated-boomerangs {
+    position: relative;
+    width: 120px;
+    /* Ancho ajustado para boomerangs juntos */
+    height: 45px;
+    margin-bottom: .05px;
+  }
+
+  /* Estilos básicos de los boomerangs */
+  .boomerang {
+    position: absolute;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    opacity: 0;
+  }
+
+  /* Tamaños específicos para cada boomerang - Ajustados para mejor alineación */
+  #small-boom img {
+    width: 12px;
+    height: auto;
+  }
+
+  #medium-boom img {
+    width: 18px;
+    height: auto;
+  }
+
+  #big-boom img {
+    width: 30px;
+    height: auto;
+  }
+
+  /* Posiciones iniciales (perfectamente alineadas horizontalmente) */
+  #small-boom {
+    top: 50%;
+    left: 40px;
+    /* Posición a la izquierda */
+    transform: translateY(-50%);
+    z-index: 7;
+  }
+
+  #medium-boom {
+    top: 50%;
+    left: 20px;
+    /* Ajustado para estar muy cerca del primero */
+    transform: translateY(-50%);
+    z-index: 9;
+  }
+
+  #big-boom {
+    top: 50%;
+    left: 90px;
+    /* Ajustado para estar muy cerca del segundo */
+    transform: translateY(-50%);
+    z-index: 8;
+  }
+
+  /* Contenedor del logo centrado */
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    z-index: 2;
+  }
+
+  .logo-container img {
+    margin-bottom: .5px;
+  }
+
+
+
+
+
+  /* Clases para la animación */
+  /* Etapa 1: Inicio y visible */
+  .boomerang.start {
+    opacity: 1;
+  }
+
+  /* Etapa 2: Movimiento hacia la derecha */
+  .boomerang.going {
+    opacity: 1;
+  }
+
+  #small-boom.going {
+    left: calc(100vw - 150px);
+    transform: translateY(-50%) rotate(720deg);
+  }
+
+  #medium-boom.going {
+    left: calc(100vw - 100px);
+    transform: translateY(-50%) rotate(720deg);
+  }
+
+  #big-boom.going {
+    left: calc(100vw - 50px);
+    transform: translateY(-50%) rotate(720deg);
+  }
+
+
+  /* Etapa 3: Regreso al logo */
+  .boomerang.returning {
+    opacity: 1;
+  }
+
+  #small-boom.returning {
+    left: 0;
+    transform: translateY(-50%) rotate(1440deg);
+  }
+
+  #medium-boom.returning {
+    left: 45px;
+    transform: translateY(-50%) rotate(1440deg);
+  }
+
+  #big-boom.returning {
+    left: 90px;
+    transform: translateY(-50%) rotate(1440deg);
+  }
+
+  /* Etapa 4: Posición final (perfectamente alineados) */
+  .boomerang.final {
+    opacity: 1;
+  }
+
+  #small-boom.final {
+    left: 30px;
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  #medium-boom.final {
+    left: 45px;
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  #big-boom.final {
+    left: 60px;
+    transform: translateY(-50%) rotate(0deg);
+  }
+
 
 

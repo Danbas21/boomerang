@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animación Logo Boomerang</title>
+  <style>
+    /* Estilos generales */
+    body {
+      margin: -10;
+      padding: -10;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Contenedor principal centrado */
+    .main-container {
+      position: static;
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Contenedor de boomerangs animados */
+    #animated-boomerangs {
+      position: relative;
+      width: 180px;
+      /* Ancho ajustado para boomerangs juntos */
+      height: 150px;
+      margin-bottom: .3px;
+    }
+
+    /* Estilos básicos de los boomerangs */
+    .boomerang {
+      position: absolute;
+      transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+      opacity: 0;
+    }
+
+    /* Tamaños específicos para cada boomerang - Ajustados para mejor alineación */
+    #small-boom img {
+      width: 50px;
+      height: auto;
+    }
+
+    #medium-boom img {
+      width: 70px;
+      height: auto;
+    }
+
+    #big-boom img {
+      width: 90px;
+      height: auto;
+    }
+
+    /* Posiciones iniciales (perfectamente alineadas horizontalmente) */
+    #small-boom {
+      top: 50%;
+      left: 0;
+      /* Posición a la izquierda */
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    #medium-boom {
+      top: 50%;
+      left: 45px;
+      /* Ajustado para estar muy cerca del primero */
+      transform: translateY(-50%);
+      z-index: 9;
+    }
+
+    #big-boom {
+      top: 50%;
+      left: 90px;
+      /* Ajustado para estar muy cerca del segundo */
+      transform: translateY(-50%);
+      z-index: 8;
+    }
+
+    /* Contenedor del logo centrado */
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      position: sticky;
+      z-index: 2;
+    }
+
+    .logo-container img {
+      margin-bottom: .5px;
+    }
+
+
+
+    /* Botón de repetir */
+    #replay-button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #FF5500;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      z-index: 20;
+    }
+
+    #replay-button:hover {
+      background-color: #E04800;
+    }
+
+    /* Clases para la animación */
+    /* Etapa 1: Inicio y visible */
+    .boomerang.start {
+      opacity: 1;
+    }
+
+    /* Etapa 2: Movimiento hacia la derecha */
+    .boomerang.going {
+      opacity: 1;
+    }
+
+    #small-boom.going {
+      left: calc(100vw - 150px);
+      transform: translateY(-50%) rotate(720deg);
+    }
+
+    #medium-boom.going {
+      left: calc(100vw - 100px);
+      transform: translateY(-50%) rotate(720deg);
+    }
+
+    #big-boom.going {
+      left: calc(100vw - 50px);
+      transform: translateY(-50%) rotate(720deg);
+    }
+
+
+    /* Etapa 3: Regreso al logo */
+    .boomerang.returning {
+      opacity: 1;
+    }
+
+    #small-boom.returning {
+      left: 0;
+      transform: translateY(-50%) rotate(1440deg);
+    }
+
+    #medium-boom.returning {
+      left: 45px;
+      transform: translateY(-50%) rotate(1440deg);
+    }
+
+    #big-boom.returning {
+      left: 90px;
+      transform: translateY(-50%) rotate(1440deg);
+    }
+
+    /* Etapa 4: Posición final (perfectamente alineados) */
+    .boomerang.final {
+      opacity: 1;
+    }
+
+    #small-boom.final {
+      left: 0;
+      transform: translateY(-50%) rotate(0deg);
+    }
+
+    #medium-boom.final {
+      left: 45px;
+      transform: translateY(-50%) rotate(0deg);
+    }
+
+    #big-boom.final {
+      left: 90px;
+      transform: translateY(-50%) rotate(0deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <!-- Boomerangs animados -->
+    <div id="animated-boomerangs">
+      <div id="small-boom" class="boomerang">
+        <img src="assets/images/svg/small_boom.svg" alt="Small Boomerang">
+      </div>
+      <div id="medium-boom" class="boomerang">
+        <img src="assets/images/svg/medium_boom.svg" alt="Medium Boomerang">
+      </div>
+      <div id="big-boom" class="boomerang">
+        <img src="assets/images/svg/big_boom.svg" alt="Big Boomerang">
+      </div>
+    </div>
+
+    <!-- Logo centrado -->
+    <div class="logo-container">
+      <img width="300" id="logo-text" src="assets/images/boomerang.png" alt="Boomerang Logo">
+      <img width="200" src="assets/images/svg/mkt.svg" alt="MKT Media Desarrollo">
+    </div>
+
+
+  </div>
+
+  <script>
+    // Función para iniciar la animación
+    function startAnimation() {
+      // Restablecer estado inicial
+      document.querySelectorAll('.boomerang').forEach(el => {
+        el.className = 'boomerang';
+      });
+
+      // Etapa 1: Mostrar boomerangs
+      setTimeout(() => {
+        document.querySelectorAll('.boomerang').forEach(el => {
+          el.classList.add('start');
+        });
+
+        // Etapa 2: Movimiento hacia la derecha
+        setTimeout(() => {
+          document.querySelectorAll('.boomerang').forEach(el => {
+            el.classList.remove('start');
+            el.classList.add('going');
+          });
+
+          // Etapa 3: Regreso al logo
+          setTimeout(() => {
+            document.querySelectorAll('.boomerang').forEach(el => {
+              el.classList.remove('going');
+              el.classList.add('returning');
+            });
+
+            // Etapa 4: Posición final
+            setTimeout(() => {
+              document.querySelectorAll('.boomerang').forEach(el => {
+                el.classList.remove('returning');
+                el.classList.add('final');
+              });
+            }, 1500);
+          }, 2000);
+        }, 500);
+      }, 300);
+    }
+
+    // Iniciar la animación cuando se carga la página
+    window.addEventListener('load', startAnimation);
+
+
+  </script>
+</body>
+
+</html>

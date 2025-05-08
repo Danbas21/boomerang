@@ -1,5 +1,46 @@
 // Inicialización de animaciones y funcionalidades
 document.addEventListener("DOMContentLoaded", function () {
+  function startAnimation() {
+    // Restablecer estado inicial
+    document.querySelectorAll(".boomerang").forEach((el) => {
+      el.className = "boomerang";
+    });
+
+    // Etapa 1: Mostrar boomerangs
+    setTimeout(() => {
+      document.querySelectorAll(".boomerang").forEach((el) => {
+        el.classList.add("start");
+      });
+
+      // Etapa 2: Movimiento hacia la derecha
+      setTimeout(() => {
+        document.querySelectorAll(".boomerang").forEach((el) => {
+          el.classList.remove("start");
+          el.classList.add("going");
+        });
+
+        // Etapa 3: Regreso al logo
+        setTimeout(() => {
+          document.querySelectorAll(".boomerang").forEach((el) => {
+            el.classList.remove("going");
+            el.classList.add("returning");
+          });
+
+          // Etapa 4: Posición final
+          setTimeout(() => {
+            document.querySelectorAll(".boomerang").forEach((el) => {
+              el.classList.remove("returning");
+              el.classList.add("final");
+            });
+          }, 1500);
+        }, 2000);
+      }, 500);
+    }, 300);
+  }
+
+  // Iniciar la animación cuando se carga la página
+  window.addEventListener("load", startAnimation);
+
   // Añadir detectores de errores para recursos
   window.addEventListener(
     "error",
