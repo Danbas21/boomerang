@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boomerang Logo Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .boomerang-group {
+            position: relative;
+            width: 100px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .boomerang {
+            position: absolute;
+            transform-origin: center;
+        }
+
+        .boomerang-1 {
+            width: 40px;
+            height: auto;
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+            z-index: 4;
+        }
+
+        .boomerang-2 {
+            width: 50px;
+            height: auto;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        .boomerang-3 {
+            width: 60px;
+            height: auto;
+            top: 50%;
+            left: 70px;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: normal;
+            color: white;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            margin: 5px 0 0 0;
+            color: #FF5500;
+        }
+
+        .nav {
+            margin-left: auto;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        /* Animaciones para los boomerangs */
+        @keyframes flyToRight1 {
+            0% {
+                left: 0px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            50% {
+                left: 800px;
+                transform: translateY(-50%) rotate(360deg);
+            }
+
+            100% {
+                left: 0px;
+                transform: translateY(-50%) rotate(720deg);
+            }
+        }
+
+        @keyframes flyToRight2 {
+            0% {
+                left: 50px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            50% {
+                left: 850px;
+                transform: translateY(-50%) rotate(360deg);
+            }
+
+            100% {
+                left: 50px;
+                transform: translateY(-50%) rotate(720deg);
+            }
+        }
+
+        @keyframes flyToRight3 {
+            0% {
+                left: 100px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            50% {
+                left: 900px;
+                transform: translateY(-50%) rotate(360deg);
+            }
+
+            100% {
+                left: 100px;
+                transform: translateY(-50%) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="boomerang-group" id="boomerangGroup">
+                <img src="assets/images/svg/small_boome.svg" class="boomerang boomerang-1" id="boomerang1"
+                    alt="Boomerang pequeño">
+                <img src="assets/images/svg/medium_boome.svg" class="boomerang boomerang-2" id="boomerang2"
+                    alt="Boomerang mediano">
+                <img src="assets/images/svg/big_boome.svg" class="boomerang boomerang-3" id="boomerang3"
+                    alt="Boomerang grande">
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="#" id="serviciosLink">servicios</a>
+            <a href="#">contacto</a>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const boomerang1 = document.getElementById('boomerang1');
+            const boomerang2 = document.getElementById('boomerang2');
+            const boomerang3 = document.getElementById('boomerang3');
+            const serviciosLink = document.getElementById('serviciosLink');
+
+            // Animación inicial al cargar la página
+            setTimeout(() => {
+                runAnimation();
+            }, 1000);
+
+            // Ejecutar animación cuando se pase el mouse sobre "servicios"
+            serviciosLink.addEventListener('mouseover', runAnimation);
+
+            // También se puede activar la animación al hacer clic en el logo
+            document.querySelector('.boomerang-group').addEventListener('click', runAnimation);
+
+            function runAnimation() {
+                // Evitar múltiples animaciones
+                if (boomerang1.style.animationName) {
+                    return;
+                }
+
+                // Configurar retraso entre boomerangs
+                // Animar boomerang 1 (el más pequeño)
+                boomerang1.style.animation = 'flyToRight1 1.5s ease-in-out forwards';
+
+                // Animar boomerang 2 con retraso
+                setTimeout(() => {
+                    boomerang2.style.animation = 'flyToRight2 1.5s ease-in-out forwards';
+                }, 150);
+
+                // Animar boomerang 3 con más retraso
+                setTimeout(() => {
+                    boomerang3.style.animation = 'flyToRight3 1.5s ease-in-out forwards';
+                }, 300);
+
+                // Limpiar animaciones para permitir repetición
+                setTimeout(() => {
+                    boomerang1.style.animation = '';
+                    boomerang2.style.animation = '';
+                    boomerang3.style.animation = '';
+                }, 1600);
+            }
+        });
+    </script>
+</body>
+
+</html>
