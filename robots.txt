@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Bloquear archivos que no queremos indexar
+Disallow: /assets/video/
+Disallow: /assets/fonts/
+Disallow: /.vscode/
+Disallow: /functions/
+Disallow: /firebaserc
+Disallow: /firebase.json
+Disallow: /package*.json
+
+# Permitir CSS y JS para renderizado
+Allow: /style.css
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Sitemap
+Sitemap: https://boomerang-mkt.com/sitemap.xml
+
+# Crawl-delay para bots pesados
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

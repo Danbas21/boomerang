@@ -985,7 +985,69 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+  let handle;
 
+  function startBlink() {
+    handle = setInterval(() => {
+      const blink = document.querySelector(".blink");
+      blink.style.visibility =
+        blink.style.visibility === "hidden" ? "visible" : "hidden";
+    }, 500);
+  }
+
+  function stopBlink() {
+    const blink = document.querySelector(".blink");
+    blink.style.visibility = "visible";
+    clearInterval(handle);
+  }
+
+  // Opciones específicas para Boomerang
+  const options = [
+    "Innova",
+    "Crea",
+    "Logra",
+    "Transforma",
+    "Impulsa",
+    "Conecta",
+    "Evoluciona",
+    "Destaca",
+    "Revoluciona",
+  ];
+
+  async function replaceTyper() {
+    const typer = document.getElementById("typer");
+    const current = typer.innerText;
+    const next = options[(options.indexOf(current) + 1) % options.length];
+
+    const CHAR_DELAY = 60; // Un poco más lento para mejor lectura
+    const WORD_DELAY = 3000; // Más tiempo para leer
+
+    stopBlink();
+
+    // Borrar texto actual
+    while (typer.innerText.length > 0) {
+      typer.innerText = typer.innerText.slice(0, -1);
+      await new Promise((resolve) => setTimeout(resolve, CHAR_DELAY));
+    }
+
+    // Escribir nuevo texto
+    for (let i = 0; i < next.length; i++) {
+      typer.innerText += next[i];
+      await new Promise((resolve) => setTimeout(resolve, CHAR_DELAY));
+    }
+
+    startBlink();
+
+    // Esperar antes del siguiente cambio
+    await new Promise((resolve) => setTimeout(resolve, WORD_DELAY));
+    replaceTyper();
+  }
+
+  // Iniciar el efecto
+  startBlink();
+  setTimeout(() => {
+    replaceTyper();
+  }, 4000);
   // Animar elementos cuando aparecen en el viewport
   const animateOnScroll = function () {
     // Elementos de texto con animación fade in

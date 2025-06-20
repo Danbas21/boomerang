@@ -59,8 +59,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .main-wrapper {
-    width: 90%;
-    max-width: 1440px;
+    width: 70%;
+
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -84,11 +84,11 @@ h1, h2, h3, h4, h5 {
 /* Efectos de hover 3D */
 .grid__cell-img {
     transform-style: preserve-3d;
-    perspective: 1000px;
+    perspective: 1300px;
 }
 
 .grid__cell-img:hover .grid__cell-img-inner {
-    transform: translateZ(20px);
+    transform: translateZ(50px);
 }
 
 /* Page Loader */
@@ -418,7 +418,7 @@ header.scrolled {
 }
 
 .toptitle-element span {
-    font-size: 1rem;
+    font-size: 2rem;
     text-transform: capitalize;
     letter-spacing: 0.2em;
     color: var(--primary);
@@ -2573,3 +2573,188 @@ h1 {
 
 
 
+
+ /* Efecto 1: Fade In/Out */
+ .container {
+    /* background: white; */
+    padding: 30px;
+    /* border-radius: 15px; */
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.2); */
+    text-align: center;
+    min-width: 1000px;
+}
+
+
+/* Efecto 1: Fade In/Out */
+.fade-text {
+    position: relative;
+    
+    display: inline-block;
+    padding: 15px 25px;
+    /* background: #3498db; */
+    color: white;
+    /* border-radius: 8px; */
+    cursor: pointer;
+    transition: all 1s ease-in;
+  
+}
+
+.fade-text::after {
+    content: "Impulsa tu Presencia Digital con Estrategias de Social Media.\A En el vertiginoso mundo digital actual, tener una sólida presencia en redes sociales no es solo una opción, ¡es una necesidad!\A\A En Boomerang, somos expertos en transformar tu marca en un imán para tu audiencia a través de estrategias de social media innovadoras y orientadas a resultados.\A\A No se trata solo de publicar; se trata de conectar, interactuar y construir una comunidad leal alrededor de tu negocio.\A\A En Boomerang, ofrecemos un abanico completo de servicios de gestión de redes sociales, diseñados a la medida de tus objetivos y presupuesto.\A\A ESTRATEGIA Y PLANIFICACIÓN PERSONALIZADA\A - Auditoría de Redes Sociales\A - Desarrollo de Estrategia\A - Creación de Calendario Editorial\A\A GESTIÓN INTEGRAL DE CONTENIDO\A - Creación de Contenido Atractivo\A - Diseño Gráfico Profesional\A - Producción de Video\A\A PUBLICIDAD EN REDES SOCIALES\A - Campañas Segmentadas\A - Optimización Constante\A - Remarketing";
+    position: absolute;
+    top: -50px;
+    left:-180px;
+    transform: translateX(-50%);
+    background:  #121212;
+ 
+    color: white;
+    padding: 20px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: pre-line;
+    pointer-events: auto;
+    width: 1000px;
+    max-width:20vw;
+    height: 350px;
+    line-height: 1.6;
+    font-size: 15px;
+    text-align: left;
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.3); */
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.fade-text:hover::after {
+    opacity: 1;
+}
+
+
+/* Estilos personalizados para la barra de scroll */
+.fade-text::after::-webkit-scrollbar {
+    width: 12px;
+    background: rgb(255, 0, 0);
+}
+
+.fade-text::after::-webkit-scrollbar-track {
+    background: rgba(255, 0, 0, 0.986);
+    border-radius: 6px;
+}
+
+.fade-text::after::-webkit-scrollbar-thumb {
+    background: #ff0000;
+    border-radius: 6px;
+    border: 2px solid rgba(255,0,0,0.1);
+}
+
+.fade-text::after::-webkit-scrollbar-thumb:hover {
+    background: #cc0000;
+}
+
+.fade-text::after::-webkit-scrollbar-corner {
+    background: rgb(255, 0, 0);
+}
+
+
+.fade-text:hover {
+
+    transform: scale(1.01);
+}
+
+@media (hover: none) {
+    .fade-text {
+        background: rgba(255,107,53,0.2);
+        border: 2px solid rgba(255,107,53,0.5);
+    }
+    
+    .fade-text::after {
+        content: "👆 Toca para ver más información sobre nuestros servicios de Social Media";
+        height: auto;
+        padding: 15px;
+        font-size: 14px;
+        text-align: center;
+        background: rgba(255,107,53,0.9);
+    }
+    
+    /* Cambiar hover por click/touch */
+    .fade-text:active::after,
+    .fade-text:focus::after {
+        opacity: 1;
+    }
+}
+
+/* Información adicional */
+.mobile-info {
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+@media (min-width: 769px) {
+    .mobile-info {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .fade-text::after {
+        width: 95vw;
+        height: 50vh;
+        font-size: 13px;
+        padding: 15px;
+        top: -40px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .fade-text {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .fade-text::after {
+        width: 98vw;
+        height: 70vh;
+        font-size: 12px;
+        padding: 15px;
+        top: -30px;
+        line-height: 1.5;
+        /* En móvil, centramos mejor */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 320px) {
+    .fade-text::after {
+        height: 75vh;
+        font-size: 11px;
+        padding: 12px;
+    }
+}
+#typer {
+    background: linear-gradient(45deg, #ff6b35, #f7931e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blink {
+    color: #ff6b35;
+    font-weight: 300;
+    animation: blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
